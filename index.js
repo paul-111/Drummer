@@ -1,12 +1,27 @@
-var numberOfDrumButtons = document.querySelectorAll(".drum").length;
+// querySelector()- methods, it listens when a button gets clicked
+// querySelectorAll()- same as querySelector() just works for all button
 
-for (var i = 0; i < numberOfDrumButtons; i++) {
 
-  document.querySelectorAll(".drum")[i].addEventListener("click", function() {
+  // addEventListener performs some functions when event is happened
+ // addEventListener has 2 perameter 1. event-Type (prebuilt keywords are here) 
+ //				     2. listener function (going to be called when event happens user made) 
+  
 
-    var buttonInnerHTML = this.innerHTML;
+var numberOfDrumButtons = document.querySelectorAll(".drum").length;  
+// here querySelectorAll(".drum") selects all the items that has the class drum in it and get how many numbers are they using length
 
-    makeSound(buttonInnerHTML);
+
+
+// function for making sound by clicking mouse
+for (var i = 0; i < numberOfDrumButtons; i++) 				// looping through each button to apply the event listener
+{
+
+  document.querySelectorAll(".drum")[i].addEventListener("click", function() {  
+
+    var buttonInnerHTML = this.innerHTML;  // this stores the inner html of where the mouse has clicked 
+    					  //  inner html - context inside tags <li>*****</li> or output we see  
+
+    makeSound(buttonInnerHTML);  // calling makesound function for making sound
 
     buttonAnimation(buttonInnerHTML);
 
@@ -14,21 +29,47 @@ for (var i = 0; i < numberOfDrumButtons; i++) {
 
 }
 
+/* this can be donr seperately too without () with function, cause we want to call function when event is click
+   if we use () it will be clicked immediately without waiting for event to be clicked
+
+   document.querySelectorAll(".drum")[i].addEventListener("click", function);
+
+   function() {  
+    var buttonInnerHTML = this.innerHTML;
+    makeSound(buttonInnerHTML);
+    buttonAnimation(buttonInnerHTML);
+   };*/
+
+
+
+// function for making sound by keyboard press
 document.addEventListener("keypress", function(event) {
 
-  makeSound(event.key);
+  makeSound(event.key);		// calling makesound function for making sound
 
   buttonAnimation(event.key);
 
 });
 
+/* 
+both works
 
-function makeSound(key) {
+function()
+{
+}
+
+function function_name()
+{
+}
+
+*/
+
+function makeSound(key) { 	 // taking key as perameter for which sound to make
 
   switch (key) {
     case "w":
-      var tom1 = new Audio("sounds/tom-1.mp3");
-      tom1.play();
+      var tom1 = new Audio("sounds/tom-1.mp3"); // stores the audio in tom1 variable
+      tom1.play(); 				// play is method provided by js
       break;
 
     case "a":
@@ -70,12 +111,19 @@ function makeSound(key) {
 
 function buttonAnimation(currentKey) {
 
-  var activeButton = document.querySelector("." + currentKey);
+// query selector can have tags and classes too, it returns full html statement that matches the perameter passed to it
 
-  activeButton.classList.add("pressed");
+  var activeButton = document.querySelector("." + currentKey);  // storing current key class to activeButton by using . and the current key
 
-  setTimeout(function() {
-    activeButton.classList.remove("pressed");
-  }, 100);
+  activeButton.classList.add("pressed"); // classlist gives the list of classes that has been applied to it 
+  					// classList.add()  adds "pressed" class to  current button that has been pressed
+  					//pressed is a class
+
+// setTimeout has 2 perameter 1. function() - what to do
+//			      2. time - after waiting for how to time to perform the function
+
+  setTimeout(function() { 
+    activeButton.classList.remove("pressed"); // pressed class got removed from activeButton
+  }, 100);		// function will be performed after waiting 100 milisec
 
 }
